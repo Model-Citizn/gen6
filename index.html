@@ -1,600 +1,964 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>6th Generation Modelling | Model Citizn</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --mc-bg:#1a1a1e;
-  --mc-bg-alt:#141416;
-  --mc-surface:#222226;
-  --mc-surface-hover:#2a2a2f;
-  --mc-accent:#EE6C4D;
-  --mc-accent-hover:#DB6245;
-  --mc-accent-light:rgba(238,108,77,0.1);
-  --mc-accent-glow:rgba(238,108,77,0.3);
-  --mc-text:#FFFFFF;
-  --mc-text-sec:rgba(255,255,255,0.65);
-  --mc-text-muted:rgba(255,255,255,0.35);
-  --mc-border:rgba(255,255,255,0.08);
-  --mc-border-accent:rgba(238,108,77,0.25);
-  --mc-card:#222226;
-  --mc-card-hover:#2a2a2f;
-  --excel:#4CAF7D;
-  --pptx:#EE6C4D;
-  --htmlblue:#64B5F6;
-  --agent:#B39DDB;
-  --serif:'Lora',Georgia,serif;
-  --sans:'Montserrat',-apple-system,sans-serif;
-  --mono:'JetBrains Mono',monospace;
-}
-html{scroll-behavior:smooth}
-body{background:var(--mc-bg);color:var(--mc-text);font-family:var(--sans);font-weight:400;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.container{max-width:1280px;margin:0 auto;padding:0 2rem}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's New — EXL Cloud Gen 2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;background:var(--mc-bg-alt);border-bottom:2px solid var(--mc-accent);display:flex;justify-content:space-between;align-items:center}
-.nav-brand{font-family:var(--sans);font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mc-text);font-weight:700}
-.nav-gen{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mc-accent);background:var(--mc-accent-light);padding:0.35rem 1rem;border-radius:100px;border:1px solid var(--mc-border-accent);font-weight:500}
+    :root {
+      --green:     #3cb54a;
+      --green-dk:  #2e9c3e;
+      --teal:      #2d7a7e;
+      --text-dark: #1a3a3c;
+      --text-mid:  #444444;
+      --text-light: #777777;
+      --white:     #ffffff;
+      --grey-bg:   #f5f5f5;
+    }
 
-/* Hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 4rem}
-.hero-eyebrow{font-family:var(--sans);font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--mc-accent);font-weight:600;margin-bottom:2rem;opacity:0;animation:fadeUp .8s ease forwards .3s}
-.hero h1{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5rem);line-height:1.15;font-weight:400;color:var(--mc-text);margin-bottom:2rem;opacity:0;animation:fadeUp .8s ease forwards .5s}
-.hero h1 em{font-style:italic;color:var(--mc-accent)}
-.hero-sub{font-size:1.1rem;color:var(--mc-text-sec);max-width:560px;line-height:1.75;opacity:0;animation:fadeUp .8s ease forwards .7s}
-.hero-sub strong{color:var(--mc-text);font-weight:600}
+    html { scroll-behavior: smooth; }
 
-/* Sections */
-.section{padding:6rem 0}
-.section-label{font-family:var(--sans);font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--mc-accent);font-weight:600;margin-bottom:0.75rem}
-.section-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.15;font-weight:400;color:var(--mc-text);margin-bottom:1.25rem}
-.section-desc{font-size:1rem;color:var(--mc-text-sec);max-width:560px;margin-bottom:3rem}
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      color: var(--text-mid);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.75;
+    }
 
-/* Icons */
-.icon-wrap{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
-.icon-wrap svg{width:24px;height:24px;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
-.icon-wrap.excel{background:rgba(76,175,125,0.12);border:1px solid rgba(76,175,125,0.25)}
-.icon-wrap.excel svg{stroke:var(--excel)}
-.icon-wrap.pptx{background:var(--mc-accent-light);border:1px solid var(--mc-border-accent)}
-.icon-wrap.pptx svg{stroke:var(--pptx)}
-.icon-wrap.html{background:rgba(100,181,246,0.12);border:1px solid rgba(100,181,246,0.25)}
-.icon-wrap.html svg{stroke:var(--htmlblue)}
-.icon-wrap.agent{background:rgba(179,157,219,0.12);border:1px solid rgba(179,157,219,0.25)}
-.icon-wrap.agent svg{stroke:var(--agent)}
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo { text-decoration: none; color: var(--teal); font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: -0.5px; }
+    .nav-logo img { height: 36px; display: block; }
+    .nav-cta {
+      background: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 11px 24px;
+      border-radius: 3px;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--green-dk); }
 
-/* Timeline */
-.timeline-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--mc-border);border:1px solid var(--mc-border);border-radius:16px;overflow:hidden;margin-top:2.5rem}
-.gen-card{background:var(--mc-card);padding:1.75rem 1.25rem;transition:background .3s}
-.gen-card:hover{background:var(--mc-card-hover)}
-.gen-card:last-child{background:var(--mc-accent-light);border-left:2px solid var(--mc-accent)}
-.gen-card:last-child:hover{background:rgba(238,108,77,0.15)}
-.gen-badge{font-family:var(--sans);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mc-text-muted);font-weight:600;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem}
-.gen-card:last-child .gen-badge{color:var(--mc-accent)}
-.gen-badge-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2)}
-.gen-card:last-child .gen-badge-dot{background:var(--mc-accent);box-shadow:0 0 8px var(--mc-accent-glow)}
-.gen-card-icon{width:36px;height:36px;margin-bottom:0.75rem;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border:1px solid var(--mc-border)}
-.gen-card-icon svg{width:18px;height:18px;stroke:var(--mc-text-sec);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.gen-card:last-child .gen-card-icon{background:var(--mc-accent-light);border-color:var(--mc-border-accent)}
-.gen-card:last-child .gen-card-icon svg{stroke:var(--mc-accent)}
-.gen-card-title{font-family:var(--sans);font-size:0.9rem;font-weight:600;color:var(--mc-text);margin-bottom:0.35rem}
-.gen-card:last-child .gen-card-title{color:var(--mc-accent)}
-.gen-card-desc{font-size:0.72rem;color:var(--mc-text-sec);line-height:1.55}
-.gen-card-era{font-family:var(--mono);font-size:0.55rem;color:var(--mc-text-muted);margin-top:0.75rem;padding-top:0.5rem;border-top:1px solid var(--mc-border)}
-.gen-card-credit{font-size:0.5rem;color:var(--mc-accent);margin-top:0.25rem;font-weight:500}
+    /* ── HERO ── */
+    .hero {
+      background: var(--teal);
+      padding: 96px 40px 88px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(40px, 8vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--white);
+      margin: 0 auto 28px;
+      max-width: 700px;
+    }
+    .hero p {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      max-width: 540px;
+      margin: 0 auto 44px;
+      line-height: 1.65;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .btn-green {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .btn-green:hover { background: var(--green-dk); }
+    .btn-text-link {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .2s;
+    }
+    .btn-text-link:hover { color: var(--white); }
+    .btn-text-link::after { content: '→'; }
 
-/* Pipeline */
-.pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mc-border);border:1px solid var(--mc-border);border-radius:16px;overflow:hidden}
-.pipeline-step{background:var(--mc-card);padding:2.25rem 1.75rem;transition:background .3s}
-.pipeline-step:hover{background:var(--mc-card-hover)}
-.pipeline-step::before{content:attr(data-step);font-family:var(--sans);font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--mc-text-muted);font-weight:600;display:block;margin-bottom:1.25rem}
-.step-title{font-family:var(--sans);font-size:1.05rem;font-weight:600;color:var(--mc-text);margin-bottom:0.75rem}
-.step-desc{font-size:0.82rem;color:var(--mc-text-sec);line-height:1.65}
-.step-tag{display:inline-block;margin-top:1rem;font-family:var(--mono);font-size:0.6rem;padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--mc-border);color:var(--mc-text-muted)}
+    /* ── DIVIDER ── */
+    .divider { display: none; }
 
-/* Agent flow */
-.agent-flow{display:flex;align-items:center;justify-content:center;gap:0.75rem;margin:3.5rem 0;flex-wrap:wrap}
-.agent-node{background:var(--mc-card);border:1px solid var(--mc-border);border-radius:14px;padding:1.25rem 1.75rem;text-align:center;transition:all .3s}
-.agent-node:hover{border-color:var(--mc-border-accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
-.agent-node-icon{width:40px;height:40px;margin:0 auto 0.6rem;border-radius:10px;display:flex;align-items:center;justify-content:center}
-.agent-node-icon svg{width:20px;height:20px;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
-.agent-node-label{font-family:var(--sans);font-size:0.7rem;font-weight:600;color:var(--mc-text)}
-.agent-connector svg{width:20px;height:20px;stroke:var(--mc-accent);stroke-width:1.5;fill:none;opacity:0.5}
+    /* ── SECTION ── */
+    .section { padding: 64px 40px; background: var(--white); }
+    .section-alt { background: var(--grey-bg); padding: 64px 40px; }
 
-/* Demo cards */
-.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
-.demo-card{background:var(--mc-card);border:1px solid var(--mc-border);border-radius:16px;overflow:hidden;transition:all .4s}
-.demo-card:hover{border-color:var(--mc-border-accent);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.3)}
-.demo-card.featured{grid-column:1/-1}
-.demo-preview{height:260px;overflow:hidden}
-.demo-card.featured .demo-preview{height:360px}
-.excel-preview{background:#162b1f;padding:1rem;height:100%;display:flex;flex-direction:column}
-.excel-toolbar{display:flex;gap:0.5rem;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(76,175,125,0.2)}
-.excel-toolbar span{font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.5rem;background:rgba(76,175,125,0.15);border-radius:4px;color:var(--excel);font-weight:500}
-.excel-grid{flex:1;display:grid;grid-template-columns:40px repeat(6,1fr);grid-template-rows:repeat(8,1fr);gap:1px;background:rgba(76,175,125,0.08);border-radius:4px;overflow:hidden;font-family:var(--mono);font-size:0.55rem}
-.excel-cell{background:rgba(10,18,13,0.8);padding:0.3rem 0.4rem;display:flex;align-items:center;color:var(--mc-text-sec);white-space:nowrap;overflow:hidden}
-.excel-cell.header{background:rgba(76,175,125,0.1);color:var(--excel);font-weight:500;justify-content:center}
-.excel-cell.input{color:#64B5F6}
-.excel-cell.formula{color:var(--mc-text)}
-.excel-cell.highlight{background:rgba(76,175,125,0.08);border-left:2px solid var(--excel)}
-.pptx-preview{background:#1e1518;padding:1.5rem;height:100%;display:flex;flex-direction:column;gap:0.75rem}
-.pptx-slide{flex:1;background:var(--mc-surface);border:1px solid rgba(238,108,77,0.15);border-radius:8px;padding:1.25rem;display:flex;flex-direction:column;justify-content:center;position:relative}
-.pptx-slide-num{position:absolute;top:0.5rem;right:0.75rem;font-family:var(--mono);font-size:0.5rem;color:var(--mc-accent);opacity:0.6}
-.pptx-title-text{font-family:var(--serif);font-size:1.05rem;color:var(--mc-text);margin-bottom:0.5rem}
-.pptx-body-text{font-size:0.7rem;color:var(--mc-text-sec);line-height:1.5}
-.pptx-chart-bar{display:flex;align-items:flex-end;gap:6px;height:55px;margin-top:0.75rem}
-.pptx-bar{flex:1;border-radius:3px 3px 0 0;transition:height 1.5s ease}
-.html-preview{background:#121620;padding:1rem;height:100%;display:flex;flex-direction:column}
-.html-browser-bar{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--mc-border)}
-.html-dots{display:flex;gap:5px}
-.html-dot{width:8px;height:8px;border-radius:50%}
-.html-dot:nth-child(1){background:#ff5f57}
-.html-dot:nth-child(2){background:#febc2e}
-.html-dot:nth-child(3){background:#28c840}
-.html-url-bar{flex:1;font-family:var(--mono);font-size:0.55rem;color:var(--mc-text-muted);background:rgba(255,255,255,0.05);padding:0.3rem 0.6rem;border-radius:6px;border:1px solid var(--mc-border)}
-.html-content{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0.5rem}
-.html-kpi{background:rgba(100,181,246,0.08);border:1px solid rgba(100,181,246,0.15);border-radius:8px;padding:0.6rem 0.75rem}
-.html-kpi-label{font-family:var(--mono);font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--mc-text-muted);margin-bottom:0.2rem}
-.html-kpi-value{font-size:1rem;font-weight:700;color:var(--htmlblue)}
-.html-kpi-delta{font-family:var(--mono);font-size:0.55rem;color:var(--excel);margin-top:0.15rem}
-.html-chart-area{grid-column:1/-1;background:rgba(255,255,255,0.03);border:1px solid var(--mc-border);border-radius:8px;padding:0.75rem;display:flex;align-items:flex-end;gap:3px}
-.html-area-bar{flex:1;background:linear-gradient(180deg,rgba(100,181,246,0.5),rgba(100,181,246,0.1));border-radius:2px 2px 0 0;min-height:4px;transition:height 2s ease}
-.html-table-area{grid-column:1/-1;background:rgba(255,255,255,0.03);border:1px solid var(--mc-border);border-radius:8px;overflow:hidden}
-.html-table-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;font-family:var(--mono);font-size:0.5rem}
-.html-table-row:first-child{background:rgba(100,181,246,0.08)}
-.html-table-cell{padding:0.35rem 0.5rem;color:var(--mc-text-sec);border-bottom:1px solid var(--mc-border)}
-.html-table-row:first-child .html-table-cell{color:var(--htmlblue);font-weight:600}
-.demo-info{padding:1.5rem 1.75rem}
-.demo-type{font-family:var(--sans);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;margin-bottom:0.4rem}
-.demo-type.excel{color:var(--excel)}
-.demo-type.pptx{color:var(--pptx)}
-.demo-type.html{color:var(--htmlblue)}
-.demo-title{font-family:var(--sans);font-size:1.05rem;font-weight:600;color:var(--mc-text);margin-bottom:0.4rem}
-.demo-desc{font-size:0.82rem;color:var(--mc-text-sec);line-height:1.6}
+    /* Teal intro band — used as header for each major update */
+    .teal-intro {
+      background: var(--teal);
+      padding: 64px 40px 56px;
+      text-align: center;
+    }
+    .teal-intro .eyebrow { color: var(--green); }
+    .teal-intro h2 {
+      color: var(--white);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .teal-intro .lead {
+      color: rgba(255,255,255,.9);
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
 
-/* Features */
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--mc-border);border:1px solid var(--mc-border);border-radius:16px;overflow:hidden;margin-top:3rem}
-.feature{background:var(--mc-card);padding:2.25rem 1.75rem;transition:background .3s}
-.feature:hover{background:var(--mc-card-hover)}
-.feature-num{font-family:var(--serif);font-size:1.8rem;color:var(--mc-accent);opacity:0.3;margin-bottom:0.75rem}
-.feature-title{font-family:var(--sans);font-size:0.95rem;font-weight:600;color:var(--mc-text);margin-bottom:0.6rem}
-.feature-desc{font-size:0.82rem;color:var(--mc-text-sec);line-height:1.65}
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 640px;
+    }
+    .lead {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
 
-/* Migration */
-.migration-banner{background:var(--mc-surface);border:1px solid var(--mc-border-accent);border-radius:16px;padding:2.5rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;margin-bottom:5rem}
-.migration-badge{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--sans);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mc-accent);font-weight:600;background:var(--mc-accent-light);padding:0.4rem 1rem;border-radius:100px;border:1px solid var(--mc-border-accent);margin-bottom:1.25rem}
-.migration-badge svg{width:14px;height:14px;stroke:var(--mc-accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.migration-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.2;color:var(--mc-text);margin-bottom:0.75rem}
-.migration-desc{font-size:0.9rem;color:var(--mc-text-sec);line-height:1.7;max-width:520px}
-.migration-desc strong{color:var(--mc-text);font-weight:600}
-.migration-platforms{display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap}
-.platform-tag{font-family:var(--sans);font-size:0.6rem;font-weight:500;padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--mc-border);color:var(--mc-text-muted)}
-.migration-cta{display:flex;flex-direction:column;align-items:center;gap:0.4rem}
-.migration-cta a{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;background:var(--mc-accent);color:#fff;font-family:var(--sans);font-size:0.82rem;font-weight:600;border-radius:100px;text-decoration:none;transition:all .3s;white-space:nowrap}
-.migration-cta a:hover{background:var(--mc-accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px var(--mc-accent-glow)}
-.migration-cta span{font-size:0.55rem;color:var(--mc-text-muted);font-weight:500}
+    /* ── FEATURE LIST ── */
+    .feature-list { list-style: none; max-width: 680px; margin-left: auto; margin-right: auto; transform: translateX(40px); }
+    .feature-list li {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 28px 0;
+    }
+    .feature-list li + li {
+      padding-top: 28px;
+    }
+    .feat-dot {
+      flex-shrink: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      margin-top: 8px;
+    }
+    .feat-text h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .feat-text p { font-size: 15px; color: var(--text-mid); line-height: 1.75; }
 
-/* 4D Process */
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:2.5rem;position:relative}
-.process-grid::before{content:'';position:absolute;top:24px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,var(--mc-accent),var(--mc-accent) 75%,rgba(255,255,255,0.1));opacity:0.3}
-.process-step{text-align:center;padding:0 0.75rem;position:relative}
-.process-dot{width:48px;height:48px;border-radius:50%;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:all .3s}
-.process-dot.d1{background:var(--mc-accent)}
-.process-dot.d2{background:rgba(238,108,77,0.7)}
-.process-dot.d3{background:rgba(238,108,77,0.45)}
-.process-dot.d4{background:rgba(238,108,77,0.25)}
-.process-dot svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.process-step:hover .process-dot{transform:scale(1.1);box-shadow:0 0 20px var(--mc-accent-glow)}
-.process-label{font-family:var(--sans);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mc-accent);font-weight:600;margin-bottom:0.4rem}
-.process-name{font-family:var(--sans);font-size:1.05rem;font-weight:600;color:var(--mc-text);margin-bottom:0.4rem}
-.process-desc{font-size:0.78rem;color:var(--mc-text-sec);line-height:1.6;max-width:200px;margin:0 auto}
-.process-philosophy{margin-top:3rem;padding:2rem 2.25rem;background:var(--mc-surface);border:1px solid var(--mc-border);border-radius:12px;display:flex;align-items:center;gap:1.25rem}
-.process-philosophy-icon{width:48px;height:48px;border-radius:12px;background:var(--mc-accent-light);border:1px solid var(--mc-border-accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.process-philosophy-icon svg{width:22px;height:22px;stroke:var(--mc-accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.process-philosophy-text{font-size:0.92rem;color:var(--mc-text-sec);line-height:1.65}
-.process-philosophy-text strong{color:var(--mc-accent);font-weight:600}
+    /* ── COVERAGE ── */
+    .coverage-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      transform: translateX(60px);
+    }
+    @media (max-width: 620px) { .coverage-wrap { grid-template-columns: 1fr; transform: none; } }
+    .coverage-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+    .coverage-col ul { list-style: none; }
+    .coverage-col ul li {
+      font-size: 14px;
+      color: var(--text-mid);
+      padding: 7px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .coverage-col ul li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
 
-/* CTA - full width coral like MC site */
-.cta-section{padding:6rem 0 0;text-align:center}
-.cta-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);line-height:1.15;color:var(--mc-text);margin-bottom:1.25rem}
-.cta-sub{font-size:1rem;color:var(--mc-text-sec);max-width:480px;margin:0 auto 3rem}
-.cta-bar{background:var(--mc-accent);padding:1.5rem 2rem;text-align:center;margin-top:3rem}
-.cta-bar a{font-family:var(--sans);font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#fff;text-decoration:none;transition:opacity .3s}
-.cta-bar a:hover{opacity:0.85}
-.cta-buttons{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-.cta-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2rem;background:var(--mc-accent);color:#fff;font-family:var(--sans);font-size:0.85rem;font-weight:600;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .3s}
-.cta-btn:hover{background:var(--mc-accent-hover);transform:translateY(-2px);box-shadow:0 12px 36px var(--mc-accent-glow)}
-.cta-btn-secondary{display:inline-flex;align-items:center;padding:0.9rem 2rem;background:transparent;color:var(--mc-text);font-family:var(--sans);font-size:0.85rem;font-weight:500;border:1px solid var(--mc-border);border-radius:100px;cursor:pointer;text-decoration:none;transition:all .3s}
-.cta-btn-secondary:hover{border-color:var(--mc-accent);color:var(--mc-accent)}
+    /* ── SKILLS ── */
+    .tier { margin: 0 auto 48px; max-width: 720px; transform: translateX(60px); }
+    .tier-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+    .tier h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+    .skill-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 16px 0;
+    }
+    .skill-row + .skill-row { padding-top: 16px; }
+    .skill-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
+      flex-shrink: 0;
+      min-width: 52px;
+      padding-top: 2px;
+      letter-spacing: .5px;
+    }
+    .skill-info h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .skill-info p { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
 
-/* Footer */
-footer{padding:2.5rem 0;border-top:1px solid var(--mc-border);display:flex;justify-content:space-between;align-items:center}
-.footer-brand{font-family:var(--sans);font-size:0.7rem;color:var(--mc-text-muted);font-weight:500}
-.footer-links{display:flex;gap:2rem}
-.footer-links a{font-size:0.8rem;color:var(--mc-text-sec);text-decoration:none;font-weight:500;transition:color .2s}
-.footer-links a:hover{color:var(--mc-accent)}
+    /* ── PRICING ── */
+    .pricing-notice {
+      background: #f0faf1;
+      padding: 20px 24px;
+      margin: 0 auto 48px;
+      max-width: 680px;
+      border-left: 4px solid var(--green);
+      transform: translateX(40px);
+    }
+    .pricing-notice p { font-size: 15px; color: var(--text-mid); line-height: 1.7; }
+    .pricing-notice strong { color: var(--text-dark); }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
-.reveal.visible{opacity:1;transform:translateY(0)}
+    .aipa-bonus {
+      background: var(--teal);
+      padding: 36px 40px;
+      margin: 8px auto 0;
+      max-width: 950px;
+      text-align: center;
+      transform: translateX(clamp(0px, (100vw - 1040px) / 2, 90px));
+    }
+    .aipa-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+    .aipa-bonus h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .aipa-bonus h3 span { color: var(--green); }
+    .aipa-bonus p {
+      font-size: 15px;
+      color: rgba(255,255,255,.9);
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 auto 24px;
+    }
+    .aipa-link {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 2px solid var(--green);
+      padding-bottom: 4px;
+      transition: color .2s;
+    }
+    .aipa-link:hover { color: var(--green); }
 
-@media(max-width:1024px){.pipeline{grid-template-columns:repeat(2,1fr)}.timeline-grid{grid-template-columns:repeat(3,1fr)}.features-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:768px){.pipeline,.features-grid{grid-template-columns:1fr}.demo-grid{grid-template-columns:1fr}.timeline-grid{grid-template-columns:repeat(2,1fr)}.agent-flow{flex-direction:column}.agent-connector svg{transform:rotate(90deg)}.migration-banner{grid-template-columns:1fr;text-align:center}.migration-platforms{justify-content:center}.process-grid{grid-template-columns:repeat(2,1fr);gap:2rem}.process-grid::before{display:none}.process-philosophy{flex-direction:column;text-align:center}footer{flex-direction:column;gap:1rem;text-align:center}}
+    .pricing-group { margin: 0 auto 52px; max-width: 720px; transform: translateX(60px); }
+    .pricing-group-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .pricing-group h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
 
-/* Scenario & Monte Carlo */
-.engine-section{padding:6rem 0}
-.engine-section .section-title em{font-family:var(--serif);color:var(--mc-accent)}
-.dual-panel{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
-.panel{background:var(--mc-card);border:1px solid var(--mc-border);border-radius:16px;overflow:hidden}
-.panel-header{padding:1.15rem 1.5rem;border-bottom:1px solid var(--mc-border);display:flex;align-items:center;justify-content:space-between}
-.panel-label{font-family:var(--sans);font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:0.5rem}
-.panel-label .dot{width:8px;height:8px;border-radius:50%}
-.panel-body{padding:1.5rem}
-.scenario-tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem}
-.scenario-tab{font-family:var(--sans);font-size:0.7rem;font-weight:600;padding:0.5rem 1.25rem;border-radius:100px;border:1px solid var(--mc-border);background:transparent;color:var(--mc-text-sec);cursor:pointer;transition:all .25s}
-.scenario-tab:hover{border-color:var(--mc-accent);color:var(--mc-text)}
-.scenario-tab.active{background:var(--mc-accent);border-color:var(--mc-accent);color:#fff}
-.scenario-tab.active.bear{background:#ef5350}
-.scenario-tab.active.bull{background:var(--excel)}
-.driver-grid{display:flex;flex-direction:column;gap:0.75rem}
-.driver-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:1rem;padding:0.65rem 0.9rem;background:rgba(255,255,255,0.02);border:1px solid var(--mc-border);border-radius:10px;transition:border-color .2s}
-.driver-row:hover{border-color:rgba(255,255,255,0.12)}
-.driver-name{font-size:0.75rem;color:var(--mc-text-sec);font-weight:500}
-.driver-value{font-family:var(--mono);font-size:0.8rem;font-weight:500;min-width:65px;text-align:right;padding:0.3rem 0.5rem;background:rgba(255,255,255,0.04);border-radius:6px;border:1px solid var(--mc-border)}
-.driver-value.up{color:var(--excel)}.driver-value.down{color:#ef5350}.driver-value.neutral{color:var(--mc-accent)}
-.output-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:0.68rem}
-.output-table th{text-align:left;padding:0.55rem 0.7rem;color:var(--mc-text-muted);font-weight:500;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;border-bottom:1px solid var(--mc-border)}
-.output-table th:not(:first-child){text-align:right}
-.output-table td{padding:0.55rem 0.7rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--mc-text-sec)}
-.output-table td:not(:first-child){text-align:right;font-weight:500}
-.output-table td.label{color:var(--mc-text);font-weight:500}
-.output-table tr.subtotal td{border-top:1px solid var(--mc-border);color:var(--mc-text);font-weight:600}
-.output-table tr.subtotal td:not(:first-child){color:var(--mc-accent)}
-.output-table td.negative{color:#ef5350}
-.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mc-border);border:1px solid var(--mc-border);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
-.kpi{background:var(--mc-card);padding:1.1rem 0.9rem;text-align:center;transition:background .2s}
-.kpi:hover{background:var(--mc-card-hover)}
-.kpi-label{font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mc-text-muted);font-weight:600;margin-bottom:0.3rem}
-.kpi-val{font-family:var(--mono);font-size:1.2rem;font-weight:600}
-.kpi-delta{font-family:var(--mono);font-size:0.55rem;margin-top:0.15rem}
-.mc-controls{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-.mc-run-btn{font-family:var(--sans);font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.6rem 1.4rem;background:var(--mc-accent);color:#fff;border:none;border-radius:100px;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:0.5rem}
-.mc-run-btn:hover{background:var(--mc-accent-hover);transform:translateY(-1px);box-shadow:0 6px 20px var(--mc-accent-glow)}
-.mc-run-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.mc-iter-label{font-family:var(--mono);font-size:0.6rem;color:var(--mc-text-muted)}.mc-iter-count{color:var(--mc-accent);font-weight:600}
-.mc-chart-wrap{background:var(--mc-card);border:1px solid var(--mc-border);border-radius:16px;padding:1.5rem;overflow:hidden}
-.mc-chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-.mc-chart-title{font-family:var(--sans);font-size:0.85rem;font-weight:600}
-.mc-chart-subtitle{font-family:var(--sans);font-size:0.65rem;color:var(--mc-text-muted)}
-canvas#mc-canvas{width:100%!important;height:280px!important;display:block;border-radius:8px}
-.mc-progress{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:1rem;overflow:hidden}
-.mc-progress-bar{height:100%;background:var(--mc-accent);border-radius:2px;width:0;transition:width .1s linear}
-.mc-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--mc-border);border:1px solid var(--mc-border);border-radius:12px;overflow:hidden;margin-top:1.5rem}
-.mc-stat{background:var(--mc-card);padding:0.9rem;text-align:center}
-.mc-stat-label{font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mc-text-muted);font-weight:600;margin-bottom:0.2rem}
-.mc-stat-val{font-family:var(--mono);font-size:0.95rem;font-weight:600}
-.mc-stat-val.green{color:var(--excel)}.mc-stat-val.red{color:#ef5350}.mc-stat-val.blue{color:var(--htmlblue)}.mc-stat-val.accent{color:var(--mc-accent)}
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-@media(max-width:900px){.dual-panel{grid-template-columns:1fr}.kpi-strip{grid-template-columns:repeat(2,1fr)}.mc-stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.mc-stats{grid-template-columns:repeat(2,1fr)}}
-</style>
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 24px;
+    }
+    .price-row + .price-row { padding-top: 18px; }
+    .price-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .price-sub {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    .price-nums {
+      display: flex;
+      gap: 24px;
+      align-items: baseline;
+      flex-shrink: 0;
+    }
+    .price-old {
+      font-size: 15px;
+      color: #bbb;
+      text-decoration: line-through;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .price-new {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--green-dk);
+    }
+    .price-rule {
+      height: 1px;
+      background: #ebebeb;
+      margin: 0;
+    }
+
+    /* addon / enterprise tables — no border, clean spacing */
+    .addon-table { width: 100%; max-width: 720px; border-collapse: collapse; }
+    .addon-table th {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding: 0 0 12px;
+      text-align: left;
+    }
+    .addon-table th:not(:first-child) { text-align: right; }
+    .addon-table td {
+      font-size: 14px;
+      color: var(--text-mid);
+      padding: 14px 0;
+      vertical-align: middle;
+    }
+    .addon-table td:not(:first-child) {
+      text-align: right;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--green-dk);
+      font-size: 15px;
+    }
+    .addon-table td.dash { color: #ccc; font-weight: 400; font-family: 'Open Sans', sans-serif; }
+    .addon-table .cell-old {
+      display: inline-block;
+      color: #bbb;
+      text-decoration: line-through;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      margin-right: 8px;
+    }
+    .addon-table tr + tr td { padding-top: 14px; }
+    .addon-table .row-rule td { padding: 0; height: 1px; background: #ebebeb; }
+
+    /* ── RESOURCES ── */
+    .resource-list { list-style: none; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .resource-list li { padding: 32px 0; }
+    .resource-list li + li { padding-top: 32px; }
+    .res-rule { height: 1px; background: #ebebeb; }
+    .resource-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .resource-list h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+    .resource-list p { font-size: 15px; color: var(--text-mid); margin-bottom: 14px; line-height: 1.75; }
+    .res-link {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .2s;
+    }
+    .res-link:hover { color: var(--green); }
+    .res-link::after { content: '→'; }
+
+    /* ── MAVEN BANNER ── */
+    .maven-banner {
+      background: var(--teal);
+      padding: 88px 40px;
+      text-align: center;
+    }
+    .maven-banner .eyebrow { color: var(--green); margin-bottom: 14px; }
+    .maven-banner h2 {
+      color: var(--white);
+      font-size: clamp(28px, 5vw, 48px);
+      max-width: 600px;
+      margin: 0 auto 16px;
+    }
+    .maven-banner p {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--white);
+      padding: 56px 40px 32px;
+      box-shadow: 0 -1px 0 rgba(0,0,0,.07);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 48px;
+      max-width: 960px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 640px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 20px; }
+      .hero { padding: 56px 20px 48px; }
+      .section, .section-alt, .maven-banner { padding-left: 20px; padding-right: 20px; }
+      .divider { margin-left: 20px; }
+      .tier { transform: none; }
+      .feature-list { transform: none; }
+      .pricing-notice, .pricing-group { transform: none; }
+      .aipa-bonus { transform: none; max-width: 720px; }
+      footer { padding-left: 20px; padding-right: 20px; }
+    }
+    footer h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+    footer p { font-size: 13px; color: var(--text-mid); line-height: 1.9; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer ul li a {
+      font-size: 14px;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    footer ul li a:hover { color: var(--green); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 24px;
+      box-shadow: 0 -1px 0 rgba(0,0,0,.07);
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .footer-bottom a { color: var(--text-light); text-decoration: none; margin-left: 16px; }
+    .footer-bottom a:hover { color: var(--green); }
+  </style>
 </head>
 <body>
+
+<!-- NAV -->
 <nav>
-  <div class="nav-brand">Model Citizn</div>
-  <div class="nav-gen">Gen 6 — 2026</div>
+  <a href="https://www.modelcitizn.com/knowledge-hub/" class="nav-logo">EXL Cloud</a>
+  <a href="https://www.modelcitizn.com/knowledge-hub/" class="nav-cta">Get EXL Cloud</a>
 </nav>
 
-<section class="hero">
-  <div class="container">
-    <div class="hero-eyebrow">Introducing 6th Generation Modelling</div>
-    <h1>From Source to Boardroom<br>in <em>One Pipeline</em></h1>
-    <p class="hero-sub">Expert-built financial models with <strong>AI-powered delivery</strong> — board-ready slides generated automatically, interactive <strong>HTML dashboards</strong> published instantly, all orchestrated by Claude agents from one human-crafted source.</p>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">What's New — 2026 Release</div>
+  <h1>Smarter workbooks,<br/>AI-powered skills and updated pricing.</h1>
+  <p>Three major updates rolling out to all EXL Cloud clients — Gen 2 workbook upgrade, a new Skills Library powered by Claude AI, and updated subscription pricing from 1 July 2026.</p>
+  <div class="hero-btns">
+    <a href="https://www.modelcitizn.com/knowledge-hub/" class="btn-green">Get EXL Cloud</a>
+    <a href="#training" class="btn-text-link">Free Training Sessions</a>
   </div>
-</section>
-
-<section class="section"><div class="container">
-  <div class="section-label reveal">The Evolution</div>
-  <h2 class="section-title reveal">Six Generations of<br>Financial Modelling</h2>
-  <p class="section-desc reveal">Each generation absorbed the last. Gen 6 is the first to orchestrate the entire delivery chain — model, deck, and dashboard — from a single instruction.</p>
-  <div class="timeline-grid reveal">
-    <div class="gen-card"><div class="gen-badge"><span class="gen-badge-dot"></span>1G</div><div class="gen-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><div class="gen-card-title">Cell-Based Formulas</div><div class="gen-card-desc">Individual formulas in individual cells. VisiCalc, Lotus 1-2-3, early Excel.</div><div class="gen-card-era">1979 – 1990s</div></div>
-    <div class="gen-card"><div class="gen-badge"><span class="gen-badge-dot"></span>2G</div><div class="gen-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div class="gen-card-title">Structured Standards</div><div class="gen-card-desc">FAST, BPM, Operis, SMART. Separation of inputs, calcs, and outputs. Blue/black convention.</div><div class="gen-card-era">1990s – 2010s</div></div>
-    <div class="gen-card"><div class="gen-badge"><span class="gen-badge-dot"></span>3G</div><div class="gen-card-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg></div><div class="gen-card-title">VBA & Macros</div><div class="gen-card-desc">Automation via code. VBA macros handle repetitive tasks, data imports, and custom functions.</div><div class="gen-card-era">2000s – 2015</div></div>
-    <div class="gen-card"><div class="gen-badge"><span class="gen-badge-dot"></span>4G</div><div class="gen-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div class="gen-card-title">Tables & Dynamic Arrays</div><div class="gen-card-desc">Structured tables, Power Query, Power Pivot, dynamic arrays. Spill ranges change the game.</div><div class="gen-card-era">2015 – 2022</div></div>
-    <div class="gen-card"><div class="gen-badge"><span class="gen-badge-dot"></span>5G</div><div class="gen-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></div><div class="gen-card-title">Component-Based (LAMBDA)</div><div class="gen-card-desc">Pre-built, pre-tested LAMBDA components. CBSE meets Excel.</div><div class="gen-card-era">2022 – present</div><div class="gen-card-credit">Craig Hatmaker · Beyond Excel</div></div>
-    <div class="gen-card"><div class="gen-badge"><span class="gen-badge-dot"></span>6G</div><div class="gen-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="gen-card-title">AI-Orchestrated</div><div class="gen-card-desc">Human-built models, AI-delivered outputs. Agents generate the deck, publish the dashboard, orchestrate handoffs.</div><div class="gen-card-era">2026 →</div><div class="gen-card-credit">Model Citizn · EXL Cloud</div></div>
-  </div>
-</div></section>
-
-<section class="section"><div class="container">
-  <div class="section-label reveal">The Pipeline</div>
-  <h2 class="section-title reveal">Source → Model → Deck → Dashboard</h2>
-  <p class="section-desc reveal">The model is human-built. Everything downstream — slides, dashboards, handoffs — is agent-driven.</p>
-  <div class="pipeline reveal">
-    <div class="pipeline-step" data-step="01 · Ingest & Build"><div class="icon-wrap excel"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div><div class="step-title">Excel Engine</div><div class="step-desc">Human-crafted EXL Cloud 3-way driver-based model. Built by skilled modellers to audit-grade standards. Zero hardcoding. Claude assists inside the spreadsheet — it doesn't replace the modeller.</div><span class="step-tag">.xlsx · Claude Agent</span></div>
-    <div class="pipeline-step" data-step="02 · Present"><div class="icon-wrap pptx"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/><rect x="6" y="11" width="5" height="6" rx="1"/><line x1="14" y1="12" x2="18" y2="12"/><line x1="14" y1="15" x2="17" y2="15"/></svg></div><div class="step-title">PowerPoint Deck</div><div class="step-desc">Board pack slides generated from model outputs. Charts, KPI tiles, executive summary — styled to your brand palette via data bridge.</div><span class="step-tag">.pptx · Claude Agent</span></div>
-    <div class="pipeline-step" data-step="03 · Publish"><div class="icon-wrap html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="step-title">Interactive Dashboard</div><div class="step-desc">Live HTML report with drill-down charts, scenario toggles, and commentary — published as a URL your board opens on any device.</div><span class="step-tag">.html · Claude Agent</span></div>
-    <div class="pipeline-step" data-step="04 · Orchestrate"><div class="icon-wrap agent"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="step-title">Agent Coordination</div><div class="step-desc">Claude agents hand off data between stages — Excel→PPT data bridge, model outputs→HTML renderer — with validation at every step.</div><span class="step-tag">MCP · Multi-Agent</span></div>
-  </div>
-</div></section>
-
-<section class="section"><div class="container">
-  <div class="section-label reveal">Under the Hood</div>
-  <h2 class="section-title reveal">Coordinated Agent<br>Architecture</h2>
-  <p class="section-desc reveal">Each agent owns a format. The orchestrator owns the pipeline. Data contracts ensure nothing breaks between handoffs.</p>
-  <div class="agent-flow reveal">
-    <div class="agent-node"><div class="agent-node-icon" style="background:rgba(255,255,255,0.04);border-radius:10px"><svg viewBox="0 0 24 24" stroke="rgba(255,255,255,0.5)"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div class="agent-node-label">Source Data</div></div>
-    <div class="agent-connector"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-    <div class="agent-node"><div class="agent-node-icon" style="background:rgba(76,175,125,0.1);border-radius:10px"><svg viewBox="0 0 24 24" stroke="#4CAF7D"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><div class="agent-node-label">Excel Agent</div></div>
-    <div class="agent-connector"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-    <div class="agent-node"><div class="agent-node-icon" style="background:rgba(238,108,77,0.1);border-radius:10px"><svg viewBox="0 0 24 24" stroke="#EE6C4D"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/></svg></div><div class="agent-node-label">PPTX Agent</div></div>
-    <div class="agent-connector"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-    <div class="agent-node"><div class="agent-node-icon" style="background:rgba(100,181,246,0.1);border-radius:10px"><svg viewBox="0 0 24 24" stroke="#64B5F6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="agent-node-label">HTML Agent</div></div>
-    <div class="agent-connector"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-    <div class="agent-node"><div class="agent-node-icon" style="background:rgba(238,108,77,0.1);border-radius:10px"><svg viewBox="0 0 24 24" stroke="#EE6C4D"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="agent-node-label">Board Members</div></div>
-  </div>
-</div></section>
-
-<section class="section"><div class="container">
-  <div class="section-label reveal">Live Outputs</div>
-  <h2 class="section-title reveal">Three Formats.<br>One Source of Truth.</h2>
-  <p class="section-desc reveal">Every number traces back to the model. Change an assumption in Excel and it cascades through slides and dashboards.</p>
-  <div class="demo-grid reveal">
-    <div class="demo-card"><div class="demo-preview"><div class="excel-preview"><div class="excel-toolbar"><span>13. Output</span><span>Income Statement</span><span>FY26</span></div><div class="excel-grid">
-      <div class="excel-cell header"></div><div class="excel-cell header">Jan</div><div class="excel-cell header">Feb</div><div class="excel-cell header">Mar</div><div class="excel-cell header">Apr</div><div class="excel-cell header">May</div><div class="excel-cell header">Jun</div>
-      <div class="excel-cell header">Rev</div><div class="excel-cell formula">1,245</div><div class="excel-cell formula">1,312</div><div class="excel-cell formula">1,398</div><div class="excel-cell formula">1,456</div><div class="excel-cell formula">1,523</div><div class="excel-cell formula">1,589</div>
-      <div class="excel-cell header">COGS</div><div class="excel-cell formula">(498)</div><div class="excel-cell formula">(525)</div><div class="excel-cell formula">(559)</div><div class="excel-cell formula">(582)</div><div class="excel-cell formula">(609)</div><div class="excel-cell formula">(636)</div>
-      <div class="excel-cell header">GP</div><div class="excel-cell formula">747</div><div class="excel-cell formula">787</div><div class="excel-cell formula">839</div><div class="excel-cell formula">874</div><div class="excel-cell formula">914</div><div class="excel-cell formula">953</div>
-      <div class="excel-cell header">GP%</div><div class="excel-cell input">60.0%</div><div class="excel-cell input">60.0%</div><div class="excel-cell input">60.0%</div><div class="excel-cell input">60.0%</div><div class="excel-cell input">60.0%</div><div class="excel-cell input">60.0%</div>
-      <div class="excel-cell header">OpEx</div><div class="excel-cell formula">(425)</div><div class="excel-cell formula">(438)</div><div class="excel-cell formula">(451)</div><div class="excel-cell formula">(465)</div><div class="excel-cell formula">(479)</div><div class="excel-cell formula">(493)</div>
-      <div class="excel-cell header">EBITDA</div><div class="excel-cell formula">322</div><div class="excel-cell formula">349</div><div class="excel-cell formula">388</div><div class="excel-cell formula">409</div><div class="excel-cell formula">435</div><div class="excel-cell formula">460</div>
-      <div class="excel-cell header">NPAT</div><div class="excel-cell formula">218</div><div class="excel-cell formula">237</div><div class="excel-cell formula">264</div><div class="excel-cell formula">279</div><div class="excel-cell formula">297</div><div class="excel-cell formula">314</div>
-    </div></div></div><div class="demo-info"><div class="demo-type excel">Excel · 3-Way Model</div><div class="demo-title">EXL Cloud Financial Engine</div><div class="demo-desc">Human-crafted driver-based P&L, Balance Sheet, and Cash Flow. Zero hardcodes. Built by skilled modellers, not generated by AI.</div></div></div>
-    <div class="demo-card"><div class="demo-preview"><div class="pptx-preview"><div class="pptx-slide"><div class="pptx-slide-num">Slide 3 / 8</div><div class="pptx-title-text">Revenue & EBITDA</div><div class="pptx-body-text">Q1 revenue $3.96M (+12% YoY). EBITDA margin expanded 280bps to 26.8%.</div><div class="pptx-chart-bar" id="pptx-bars"><div class="pptx-bar" style="height:45%;background:rgba(238,108,77,0.3)"></div><div class="pptx-bar" style="height:55%;background:rgba(238,108,77,0.4)"></div><div class="pptx-bar" style="height:62%;background:rgba(238,108,77,0.5)"></div><div class="pptx-bar" style="height:48%;background:rgba(238,108,77,0.35)"></div><div class="pptx-bar" style="height:72%;background:rgba(238,108,77,0.6)"></div><div class="pptx-bar" style="height:68%;background:rgba(238,108,77,0.55)"></div><div class="pptx-bar" style="height:78%;background:var(--mc-accent)"></div><div class="pptx-bar" style="height:82%;background:var(--mc-accent)"></div></div></div></div></div><div class="demo-info"><div class="demo-type pptx">PowerPoint · Board Deck</div><div class="demo-title">Automated Board Pack</div><div class="demo-desc">8-slide structured deck — executive summary, revenue deep-dive, expense analysis, EBITDA trend, regional split, and board actions.</div></div></div>
-    <div class="demo-card featured"><div class="demo-preview"><div class="html-preview"><div class="html-browser-bar"><div class="html-dots"><div class="html-dot"></div><div class="html-dot"></div><div class="html-dot"></div></div><div class="html-url-bar">board.modelcitizn.com/acme-corp/q1-fy26</div></div><div class="html-content">
-      <div class="html-kpi"><div class="html-kpi-label">Revenue</div><div class="html-kpi-value">$3.96M</div><div class="html-kpi-delta">▲ 12.3% YoY</div></div>
-      <div class="html-kpi"><div class="html-kpi-label">EBITDA</div><div class="html-kpi-value">$1.06M</div><div class="html-kpi-delta">▲ 18.1% YoY</div></div>
-      <div class="html-kpi"><div class="html-kpi-label">NPAT Margin</div><div class="html-kpi-value">18.2%</div><div class="html-kpi-delta">▲ 2.8pp</div></div>
-      <div class="html-chart-area" id="html-bars"><div class="html-area-bar" style="height:30%"></div><div class="html-area-bar" style="height:38%"></div><div class="html-area-bar" style="height:42%"></div><div class="html-area-bar" style="height:35%"></div><div class="html-area-bar" style="height:50%"></div><div class="html-area-bar" style="height:55%"></div><div class="html-area-bar" style="height:48%"></div><div class="html-area-bar" style="height:62%"></div><div class="html-area-bar" style="height:58%"></div><div class="html-area-bar" style="height:68%"></div><div class="html-area-bar" style="height:72%"></div><div class="html-area-bar" style="height:78%"></div></div>
-      <div class="html-table-area"><div class="html-table-row"><div class="html-table-cell">Metric</div><div class="html-table-cell">Actual</div><div class="html-table-cell">Budget</div><div class="html-table-cell">Var %</div></div><div class="html-table-row"><div class="html-table-cell">Revenue</div><div class="html-table-cell">3,955</div><div class="html-table-cell">3,720</div><div class="html-table-cell" style="color:#4CAF7D">+6.3%</div></div><div class="html-table-row"><div class="html-table-cell">EBITDA</div><div class="html-table-cell">1,059</div><div class="html-table-cell">980</div><div class="html-table-cell" style="color:#4CAF7D">+8.1%</div></div><div class="html-table-row"><div class="html-table-cell">Cash</div><div class="html-table-cell">2,340</div><div class="html-table-cell">2,100</div><div class="html-table-cell" style="color:#4CAF7D">+11.4%</div></div></div>
-    </div></div></div><div class="demo-info"><div class="demo-type html">HTML · Interactive Dashboard</div><div class="demo-title">Board-Ready Web Report</div><div class="demo-desc">Published to a URL. Board members open it on any device — no software, no login wall. Drill-down charts, scenario toggles, and KPI tiles from the same model data.</div></div></div>
-  </div>
-</div></section>
-
-<!-- LIVE ENGINE: Scenario + Monte Carlo -->
-<section class="engine-section"><div class="container">
-  <div class="section-label reveal">Live Engine</div>
-  <h2 class="section-title reveal">Scenario Manager &<br><em>Monte Carlo Simulation</em></h2>
-  <p class="section-desc reveal">Toggle scenarios to see outputs recalculate in real time. Run 10,000 Monte Carlo simulations to stress-test NPAT distribution.</p>
-
-  <div class="kpi-strip reveal" id="kpi-strip">
-    <div class="kpi"><div class="kpi-label">Revenue</div><div class="kpi-val" id="kpi-rev">$15.8M</div><div class="kpi-delta" id="kpi-rev-d" style="color:var(--mc-accent)">Base Case</div></div>
-    <div class="kpi"><div class="kpi-label">EBITDA</div><div class="kpi-val" id="kpi-ebitda">$4.3M</div><div class="kpi-delta" id="kpi-ebitda-d" style="color:var(--mc-accent)">27.2% margin</div></div>
-    <div class="kpi"><div class="kpi-label">NPAT</div><div class="kpi-val" id="kpi-npat">$2.9M</div><div class="kpi-delta" id="kpi-npat-d" style="color:var(--mc-accent)">18.4% margin</div></div>
-    <div class="kpi"><div class="kpi-label">FCF Yield</div><div class="kpi-val" id="kpi-fcf">14.2%</div><div class="kpi-delta" id="kpi-fcf-d" style="color:var(--mc-accent)">Strong</div></div>
-  </div>
-
-  <div class="dual-panel reveal">
-    <div class="panel">
-      <div class="panel-header"><div class="panel-label" style="color:var(--mc-accent)"><span class="dot" style="background:var(--mc-accent)"></span>Scenario Manager</div><span style="font-family:var(--mono);font-size:0.5rem;color:var(--mc-text-muted)">Scen_Select</span></div>
-      <div class="panel-body">
-        <div class="scenario-tabs">
-          <button class="scenario-tab bear" data-scenario="bear" onclick="setScenario('bear')">Bear</button>
-          <button class="scenario-tab base active" data-scenario="base" onclick="setScenario('base')">Base</button>
-          <button class="scenario-tab bull" data-scenario="bull" onclick="setScenario('bull')">Bull</button>
-        </div>
-        <div class="driver-grid" id="drivers"></div>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-header"><div class="panel-label" style="color:var(--excel)"><span class="dot" style="background:var(--excel)"></span>13. Output · FY26</div><span style="font-family:var(--mono);font-size:0.5rem;color:var(--mc-text-muted)">Annual</span></div>
-      <div class="panel-body"><table class="output-table" id="output-table"><thead><tr><th>Line Item</th><th>$'000</th><th>Margin</th></tr></thead><tbody></tbody></table></div>
-    </div>
-  </div>
-
-  <div class="panel reveal">
-    <div class="panel-header">
-      <div class="panel-label" style="color:var(--htmlblue)"><span class="dot" style="background:var(--htmlblue)"></span>Monte Carlo Simulation</div>
-      <div class="mc-controls"><span class="mc-iter-label">Iterations: <span class="mc-iter-count" id="iter-count">0</span> / 10,000</span><button class="mc-run-btn" id="run-btn" onclick="runMonteCarlo()"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Run Simulation</button></div>
-    </div>
-    <div class="panel-body">
-      <div class="mc-chart-wrap">
-        <div class="mc-chart-header"><div><div class="mc-chart-title">NPAT Distribution — 10,000 Simulations</div><div class="mc-chart-subtitle">Revenue growth, GP margin, and OpEx growth varied with normal distributions</div></div></div>
-        <canvas id="mc-canvas"></canvas>
-        <div class="mc-progress"><div class="mc-progress-bar" id="mc-progress"></div></div>
-      </div>
-      <div class="mc-stats">
-        <div class="mc-stat"><div class="mc-stat-label">Mean NPAT</div><div class="mc-stat-val accent" id="stat-mean">—</div></div>
-        <div class="mc-stat"><div class="mc-stat-label">Median</div><div class="mc-stat-val blue" id="stat-median">—</div></div>
-        <div class="mc-stat"><div class="mc-stat-label">Std Dev</div><div class="mc-stat-val" id="stat-std">—</div></div>
-        <div class="mc-stat"><div class="mc-stat-label">P10 (Downside)</div><div class="mc-stat-val red" id="stat-p10">—</div></div>
-        <div class="mc-stat"><div class="mc-stat-label">P90 (Upside)</div><div class="mc-stat-val green" id="stat-p90">—</div></div>
-      </div>
-    </div>
-  </div>
-</div></section>
-
-<section class="section"><div class="container">
-  <div class="section-label reveal">Why Gen 6</div>
-  <h2 class="section-title reveal">What Changes When<br>Delivery is Automated</h2>
-  <div class="features-grid reveal">
-    <div class="feature"><div class="feature-num">01</div><div class="feature-title">Single Source of Truth</div><div class="feature-desc">Every number in the deck and dashboard traces to a formula in the model. Change one assumption — it cascades everywhere.</div></div>
-    <div class="feature"><div class="feature-num">02</div><div class="feature-title">Audit-Grade Standards</div><div class="feature-desc">EXL Cloud conventions enforced: zero hardcoding, blue inputs, black formulas, validation checks, change log, error sheet.</div></div>
-    <div class="feature"><div class="feature-num">03</div><div class="feature-title">Hours → Minutes</div><div class="feature-desc">The manual cycle of copy→paste→format→email for slides and reports takes days. The agent pipeline automates delivery — not the modelling itself.</div></div>
-    <div class="feature"><div class="feature-num">04</div><div class="feature-title">Interactive by Default</div><div class="feature-desc">Board members get a URL, not a PDF. Drill into any number. Toggle scenarios. Read AI-generated commentary in context.</div></div>
-    <div class="feature"><div class="feature-num">05</div><div class="feature-title">Skills-Driven Quality</div><div class="feature-desc">80+ custom Claude skills encode EXL Cloud formatting rules, validation logic, and reporting standards — assisting modellers and automating downstream delivery.</div></div>
-    <div class="feature"><div class="feature-num">06</div><div class="feature-title">Repeatable & Scalable</div><div class="feature-desc">Run the same pipeline for 10 entities, 12 months, 3 scenarios. The architecture doesn't fatigue — it just executes.</div></div>
-  </div>
-</div></section>
-
-<section class="section"><div class="container">
-  <div class="migration-banner reveal">
-    <div>
-      <div class="migration-badge"><svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>Free migration included</div>
-      <h3 class="migration-title">Stuck in a Non-Excel<br>Planning Tool?</h3>
-      <p class="migration-desc">Non-Excel planning tools lock you into their ecosystem — making it difficult to move <strong>and</strong> impossible to embrace new technologies like AI agents inside your spreadsheet. Legacy models built without standards are just as limiting. Every Gen 6 project includes a <strong>free migration</strong> into open, audit-grade Excel. No ongoing subscription required.</p>
-      <div class="migration-platforms"><span class="platform-tag">Non-Excel planning tools</span><span class="platform-tag">Legacy spreadsheets</span></div>
-    </div>
-    <div class="migration-cta"><a href="https://modelcitizn.com/contact">Book a Migration Call →</a><span>No lock-in. Ever.</span></div>
-  </div>
-  <div class="section-label reveal">How We Deliver</div>
-  <h2 class="section-title reveal">The 4D Process</h2>
-  <p class="section-desc reveal">Four phases. Clear boundaries. Our goal is to make you self-sufficient — not dependent on us.</p>
-  <div class="process-grid reveal">
-    <div class="process-step"><div class="process-dot d1"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="process-label">Phase 1</div><div class="process-name">Diagnose</div><div class="process-desc">Initial call to understand your current state, pain points, data sources, and what decisions the model needs to support.</div></div>
-    <div class="process-step"><div class="process-dot d2"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div><div class="process-label">Phase 2</div><div class="process-name">Design</div><div class="process-desc">Scope the model architecture — components, drivers, scenarios, outputs. Agreed before a single formula is written.</div></div>
-    <div class="process-step"><div class="process-dot d3"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><div class="process-label">Phase 3</div><div class="process-name">Develop</div><div class="process-desc">Skilled modellers build the model to EXL Cloud standards. AI agents then generate the board deck and publish the interactive dashboard.</div></div>
-    <div class="process-step"><div class="process-dot d4"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="process-label">Phase 4</div><div class="process-name">Deploy</div><div class="process-desc">Training, implementation, and handover. Your team runs the model. Ongoing support only if you need it.</div></div>
-  </div>
-  <div class="process-philosophy reveal">
-    <div class="process-philosophy-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="process-philosophy-text"><strong>Our intent is that you never need to call us.</strong> We build models with highly skilled humans, then hand them over so your team owns, understands, and operates them independently. No platform subscriptions. No consultant dependency. Just Excel, Claude, and your data. <span style="color:var(--mc-text-muted);font-size:0.82rem">Xero-connected models include a small ongoing subscription for live data integration.</span></div>
-  </div>
-</div></section>
-
-<section class="cta-section"><div class="container">
-  <h2 class="cta-title reveal">Ready to Skip<br>Two Generations?</h2>
-  <p class="cta-sub reveal">Most firms are still at Gen 2. Some have reached Gen 5. We're building at Gen 6 — and the pipeline is live.</p>
-  <div class="cta-buttons reveal"><a href="https://modelcitizn.com/contact" class="cta-btn">Book a Demo →</a><a href="https://modelcitizn.com" class="cta-btn-secondary">Learn More</a></div>
-</div></section>
-
-<div class="cta-bar"><a href="https://modelcitizn.com/contact">BOOK A MEETING</a></div>
-
-<div class="container">
-  <footer>
-    <div class="footer-brand">© 2026 Model Citizn · EXL Cloud</div>
-    <div class="footer-links"><a href="https://modelcitizn.com">Home</a><a href="https://www.linkedin.com/in/lancerubin/">LinkedIn</a><a href="https://maven.com">Maven Course</a></div>
-  </footer>
 </div>
 
-<script>
-// ─── SCROLL REVEAL ───
-document.querySelectorAll('.reveal').forEach(el=>{new IntersectionObserver(([e])=>{if(e.isIntersecting)e.target.classList.add('visible')},{threshold:.15,rootMargin:'0px 0px -60px 0px'}).observe(el)});
-['html-bars','pptx-bars'].forEach(id=>{const el=document.getElementById(id);if(!el)return;new IntersectionObserver(([e])=>{if(e.isIntersecting)Array.from(e.target.children).forEach((b,i)=>{const h=b.style.height;b.style.height='4px';setTimeout(()=>b.style.height=h,100+i*80)})},{threshold:.5}).observe(el)});
+<div class="divider"></div>
 
-// ─── SCENARIO ENGINE ───
-const scenarios={
-  bear:{label:'Bear Case',drivers:[
-    {name:'Revenue Growth',value:-5.0,unit:'%',dir:'down'},{name:'Gross Profit Margin',value:52.0,unit:'%',dir:'down'},
-    {name:'OpEx Growth',value:8.0,unit:'%',dir:'down'},{name:'Capex (% Rev)',value:6.0,unit:'%',dir:'down'},
-    {name:'Working Capital Days',value:55,unit:' days',dir:'down'},{name:'Tax Rate',value:30.0,unit:'%',dir:'neutral'}
-  ],rev:13200,cogs:6336,opex:5148,dep:396,interest:180,tax:0.30},
-  base:{label:'Base Case',drivers:[
-    {name:'Revenue Growth',value:8.0,unit:'%',dir:'up'},{name:'Gross Profit Margin',value:60.0,unit:'%',dir:'neutral'},
-    {name:'OpEx Growth',value:4.0,unit:'%',dir:'neutral'},{name:'Capex (% Rev)',value:4.5,unit:'%',dir:'neutral'},
-    {name:'Working Capital Days',value:42,unit:' days',dir:'neutral'},{name:'Tax Rate',value:30.0,unit:'%',dir:'neutral'}
-  ],rev:15800,cogs:6320,opex:5372,dep:355,interest:140,tax:0.30},
-  bull:{label:'Bull Case',drivers:[
-    {name:'Revenue Growth',value:15.0,unit:'%',dir:'up'},{name:'Gross Profit Margin',value:65.0,unit:'%',dir:'up'},
-    {name:'OpEx Growth',value:2.5,unit:'%',dir:'up'},{name:'Capex (% Rev)',value:3.5,unit:'%',dir:'up'},
-    {name:'Working Capital Days',value:35,unit:' days',dir:'up'},{name:'Tax Rate',value:30.0,unit:'%',dir:'neutral'}
-  ],rev:18900,cogs:6615,opex:5284,dep:330,interest:110,tax:0.30}
-};
-let currentScenario='base';
-function fmt(n){return Math.abs(n)>=1000?(n<0?'-':'')+Math.abs(n).toLocaleString('en-AU'):n.toFixed(0)}
-function fmtM(n){return '$'+(n/1000).toFixed(1)+'M'}
-function pct(n,d){return d===0?'—':(n/d*100).toFixed(1)+'%'}
-function setScenario(key){
-  currentScenario=key;
-  document.querySelectorAll('.scenario-tab').forEach(t=>{t.classList.remove('active');if(t.dataset.scenario===key)t.classList.add('active')});
-  renderDrivers();renderOutput();renderKPIs();
-}
-function renderDrivers(){
-  const s=scenarios[currentScenario];
-  document.getElementById('drivers').innerHTML=s.drivers.map(d=>'<div class="driver-row"><div class="driver-name">'+d.name+'</div><div class="driver-value '+d.dir+'">'+d.value+d.unit+'</div></div>').join('');
-}
-function renderOutput(){
-  const s=scenarios[currentScenario],gp=s.rev-s.cogs,ebitda=gp-s.opex,ebit=ebitda-s.dep,pbt=ebit-s.interest,tax=pbt*s.tax,npat=pbt-tax;
-  const rows=[
-    {l:'Revenue',v:s.rev,m:'100.0%',sub:false},{l:'COGS',v:-s.cogs,m:pct(s.cogs,s.rev),sub:false},
-    {l:'Gross Profit',v:gp,m:pct(gp,s.rev),sub:true},{l:'Operating Expenses',v:-s.opex,m:pct(s.opex,s.rev),sub:false},
-    {l:'EBITDA',v:ebitda,m:pct(ebitda,s.rev),sub:true},{l:'Depreciation',v:-s.dep,m:'',sub:false},
-    {l:'Interest',v:-s.interest,m:'',sub:false},{l:'Tax',v:-tax,m:pct(tax,s.rev),sub:false},
-    {l:'NPAT',v:npat,m:pct(npat,s.rev),sub:true}
-  ];
-  document.querySelector('#output-table tbody').innerHTML=rows.map(r=>{
-    const vs=r.v<0?'('+fmt(Math.abs(r.v))+')':fmt(r.v);
-    return '<tr'+(r.sub?' class="subtotal"':'')+'><td class="label">'+r.l+'</td><td'+(r.v<0&&!r.sub?' class="negative"':'')+'>'+vs+'</td><td>'+r.m+'</td></tr>';
-  }).join('');
-}
-function renderKPIs(){
-  const s=scenarios[currentScenario],gp=s.rev-s.cogs,ebitda=gp-s.opex,npat=(ebitda-s.dep-s.interest)*(1-s.tax),fcf=npat+s.dep-s.rev*0.045,fcfY=fcf/s.rev*100;
-  const col=currentScenario==='bear'?'#ef5350':currentScenario==='bull'?'var(--excel)':'var(--mc-accent)';
-  document.getElementById('kpi-rev').textContent=fmtM(s.rev);
-  document.getElementById('kpi-ebitda').textContent=fmtM(ebitda);
-  document.getElementById('kpi-npat').textContent=fmtM(npat);
-  document.getElementById('kpi-fcf').textContent=fcfY.toFixed(1)+'%';
-  document.getElementById('kpi-rev-d').textContent=s.label;document.getElementById('kpi-rev-d').style.color=col;
-  document.getElementById('kpi-ebitda-d').textContent=pct(ebitda,s.rev)+' margin';document.getElementById('kpi-ebitda-d').style.color=col;
-  document.getElementById('kpi-npat-d').textContent=pct(npat,s.rev)+' margin';document.getElementById('kpi-npat-d').style.color=col;
-  document.getElementById('kpi-fcf-d').textContent=fcfY>12?'Strong':fcfY>6?'Adequate':'Weak';document.getElementById('kpi-fcf-d').style.color=col;
-}
+<!-- ══ GEN 2 UPGRADE ══ -->
+<div class="teal-intro">
+  <div class="eyebrow">Update 1 of 3</div>
+  <h2>Gen 2 Workbook Upgrade</h2>
+  <p class="lead">Every EXL Cloud workbook has been rebuilt to the Gen 2 standard — a cleaner, more consistent experience across every file you work with.</p>
+</div>
+<div class="section">
+  <ul class="feature-list">
+    <li>
+      <div class="feat-dot"></div>
+      <div class="feat-text">
+        <h3>Instructions Sheet</h3>
+        <p>Every workbook now includes a dedicated Instructions sheet with clear guidance on how to use the file, what the formulas do, and how to get the most out of it with Claude's skills.</p>
+      </div>
+    </li>
+    <li>
+      <div class="feat-dot"></div>
+      <div class="feat-text">
+        <h3>Improved Navigation</h3>
+        <p>Cleaner structure so you spend less time finding what you need and more time on the analysis that matters.</p>
+      </div>
+    </li>
+    <li>
+      <div class="feat-dot"></div>
+      <div class="feat-text">
+        <h3>Consistent Formatting</h3>
+        <p>Uniform layout across all workbooks — moving between files feels seamless and familiar.</p>
+      </div>
+    </li>
+    <li>
+      <div class="feat-dot"></div>
+      <div class="feat-text">
+        <h3>Formula Transparency</h3>
+        <p>Comprehensive plain-English notes on complex formulas. No more black magic numbers — see exactly where every calculation comes from.</p>
+      </div>
+    </li>
+  </ul>
+</div>
 
-// ─── MONTE CARLO ───
-function boxMuller(){let u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
-function simulateNPAT(){
-  const rev=14630*(1+0.08+0.06*boxMuller()),gp=rev*(0.60+0.05*boxMuller()),opex=5165*(1+0.04+0.03*boxMuller());
-  return(gp-opex-rev*0.022-140)*0.70;
-}
-let mcResults=[],isRunning=false;
-function runMonteCarlo(){
-  if(isRunning)return;isRunning=true;mcResults=[];
-  const total=10000,batch=200;let done=0;
-  const btn=document.getElementById('run-btn');
-  btn.innerHTML='<svg viewBox="0 0 24 24" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Running...';
-  function tick(){
-    const end=Math.min(done+batch,total);
-    for(let i=done;i<end;i++)mcResults.push(simulateNPAT());
-    done=end;
-    document.getElementById('iter-count').textContent=done.toLocaleString();
-    document.getElementById('mc-progress').style.width=(done/total*100)+'%';
-    if(done<total){requestAnimationFrame(tick)}
-    else{isRunning=false;btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Re-run';renderHistogram();renderStats()}
-  }
-  requestAnimationFrame(tick);
-}
-function renderHistogram(){
-  const canvas=document.getElementById('mc-canvas'),ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1,rect=canvas.getBoundingClientRect();
-  canvas.width=rect.width*dpr;canvas.height=280*dpr;ctx.scale(dpr,dpr);
-  const W=rect.width,H=280,sorted=[...mcResults].sort((a,b)=>a-b),min=sorted[0],max=sorted[sorted.length-1];
-  const bins=60,binW=(max-min)/bins,counts=new Array(bins).fill(0);
-  for(const v of sorted){counts[Math.min(Math.floor((v-min)/binW),bins-1)]++}
-  const maxC=Math.max(...counts),p10=sorted[Math.floor(sorted.length*.1)],p90=sorted[Math.floor(sorted.length*.9)],mean=sorted.reduce((a,b)=>a+b,0)/sorted.length;
-  const pad={l:50,r:20,t:15,b:35},cW=W-pad.l-pad.r,cH=H-pad.t-pad.b,bW=cW/bins;
-  ctx.clearRect(0,0,W,H);
-  for(let i=0;i<bins;i++){
-    const x=pad.l+i*bW,h=(counts[i]/maxC)*cH,bv=min+(i+.5)*binW;
-    ctx.fillStyle=bv<p10?'rgba(239,83,80,0.5)':bv>p90?'rgba(76,175,125,0.5)':'rgba(238,108,77,0.4)';
-    ctx.beginPath();ctx.roundRect(x+1,pad.t+cH-h,bW-2,h,[2,2,0,0]);ctx.fill();
-  }
-  const mx=pad.l+((mean-min)/(max-min))*cW;
-  ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(mx,pad.t);ctx.lineTo(mx,pad.t+cH);ctx.stroke();ctx.setLineDash([]);
-  ctx.fillStyle='#fff';ctx.font='500 9px Montserrat';ctx.textAlign='center';ctx.fillText('MEAN',mx,pad.t-3);
-  const px10=pad.l+((p10-min)/(max-min))*cW,px90=pad.l+((p90-min)/(max-min))*cW;
-  ctx.setLineDash([3,3]);ctx.lineWidth=1;
-  ctx.strokeStyle='rgba(239,83,80,0.6)';ctx.beginPath();ctx.moveTo(px10,pad.t);ctx.lineTo(px10,pad.t+cH);ctx.stroke();
-  ctx.strokeStyle='rgba(76,175,125,0.6)';ctx.beginPath();ctx.moveTo(px90,pad.t);ctx.lineTo(px90,pad.t+cH);ctx.stroke();ctx.setLineDash([]);
-  ctx.font='500 8px JetBrains Mono';ctx.textAlign='center';
-  ctx.fillStyle='rgba(239,83,80,0.8)';ctx.fillText('P10',px10,pad.t+cH+22);
-  ctx.fillStyle='rgba(76,175,125,0.8)';ctx.fillText('P90',px90,pad.t+cH+22);
-  ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='400 9px JetBrains Mono';
-  const step=Math.ceil(bins/8);
-  for(let i=0;i<bins;i+=step){ctx.fillText('$'+((min+(i+.5)*binW)/1000).toFixed(1)+'M',pad.l+(i+.5)*bW,pad.t+cH+14)}
-  ctx.textAlign='right';for(let i=0;i<=4;i++){const y=pad.t+cH-(i/4)*cH;ctx.fillText(Math.round(maxC*i/4),pad.l-8,y+3);if(i>0){ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke()}}
-}
-function renderStats(){
-  const sorted=[...mcResults].sort((a,b)=>a-b),n=sorted.length,mean=sorted.reduce((a,b)=>a+b,0)/n,std=Math.sqrt(sorted.reduce((a,b)=>a+(b-mean)**2,0)/n);
-  document.getElementById('stat-mean').textContent=fmtM(mean);
-  document.getElementById('stat-median').textContent=fmtM(sorted[Math.floor(n/2)]);
-  document.getElementById('stat-std').textContent='$'+(std/1000).toFixed(1)+'M';
-  document.getElementById('stat-p10').textContent=fmtM(sorted[Math.floor(n*.1)]);
-  document.getElementById('stat-p90').textContent=fmtM(sorted[Math.floor(n*.9)]);
-}
-setScenario('base');
-</script>
-</body>
+<!-- Coverage -->
+<div class="teal-intro">
+  <div class="eyebrow">Gen 2 Coverage</div>
+  <h2>Which workbooks are upgraded?</h2>
+  <p class="lead">Gen 2 covers the full EXL Cloud library — full upgrade for core workbooks, instructions update for Data Push and Pull.</p>
+</div>
+<div class="section-alt">
+
+  <div class="coverage-wrap">
+    <div class="coverage-col">
+      <h4>Gen 2 Full</h4>
+      <ul>
+        <li>Performance Report</li>
+        <li>Positions &amp; Returns</li>
+        <li>1-Way Cash Flow Scenario Model</li>
+        <li>1-Way Profit Performance Scenario Model</li>
+        <li>Weel Expense Model</li>
+        <li>Accounts Receivable Model</li>
+        <li>Weekly Cash Flow Model</li>
+        <li>3-Way Driver-Based Financial Model</li>
+        <li>Profit &amp; Loss Insights</li>
+        <li>Trial Balance Insights</li>
+        <li>Accounts Receivable Insights</li>
+        <li>Accounts Payable Insights</li>
+        <li>Human Capital Model</li>
+        <li>R&amp;D Template</li>
+        <li>Advanced Rolling Property Development Model</li>
+      </ul>
+    </div>
+    <div class="coverage-col">
+      <h4>Gen 2 Half Update</h4>
+      <ul>
+        <li>Manual Journal (Data Push)</li>
+        <li>Bank Transactions (Data Push)</li>
+        <li>Invoices &amp; Bills (Data Push)</li>
+        <li>Quotes (Data Push)</li>
+        <li>Chart of Accounts (Data Push)</li>
+        <li>P&amp;L / BS / Budget (Data Pull)</li>
+        <li>Balance Sheet (Data Pull)</li>
+        <li>Profit &amp; Loss (Data Pull)</li>
+        <li>Trial Balance (Data Pull)</li>
+        <li>Account Transactions (Data Pull)</li>
+        <li>FX Rates &amp; Named Budget (Data Pull)</li>
+        <li>Consolidated Workbook (P&amp;L and BS)</li>
+        <li>Bookkeeping Quoting Tool</li>
+        <li>Financial Control Master Toolkit</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SKILLS LIBRARY ══ -->
+<div class="teal-intro">
+  <div class="eyebrow">Update 2 of 3</div>
+  <h2>Skills Library — Claude AI for EXL Cloud</h2>
+  <p class="lead">15 purpose-built Claude AI skills for EXL Cloud workbooks. Download from GitHub in one click, load into Claude, and it's instantly trained for that specific workbook. No setup, no technical knowledge required.</p>
+</div>
+<div class="section">
+
+  <div class="tier">
+    <div class="tier-label">Tier 1</div>
+    <h3>Foundation</h3>
+    <div class="skill-row">
+      <div class="skill-num">Skill 01</div>
+      <div class="skill-info"><h4>EXL Cloud Skills Foundations</h4><p>Quality benchmarking for skill development and model auditing.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 02</div>
+      <div class="skill-info"><h4>Best Practice Financial Modelling</h4><p>Formatting, colour coding, and formula standards for Excel models.</p></div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-label">Tier 2</div>
+    <h3>Data Infrastructure</h3>
+    <div class="skill-row">
+      <div class="skill-num">Skill 03</div>
+      <div class="skill-info"><h4>Clean &amp; Validate Data</h4><p>Automated data cleanup before any reporting or modelling work begins.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 04</div>
+      <div class="skill-info"><h4>Trial Balance Mapper</h4><p>Maps accounts from any accounting system into standardised categories.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 05</div>
+      <div class="skill-info"><h4>Period Table Builder</h4><p>Builds the Period date structure that drives all time-series workbooks.</p></div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-label">Tier 3</div>
+    <h3>Narrative Layer</h3>
+    <div class="skill-row">
+      <div class="skill-num">Skill 06</div>
+      <div class="skill-info"><h4>Monthly Commentary Generator</h4><p>Generates professional management commentary from P&amp;L and cash flow data.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 07</div>
+      <div class="skill-info"><h4>Board Paper Drafter</h4><p>Assembles a complete board-ready report from commentary and financial data.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 08</div>
+      <div class="skill-info"><h4>Cash Flow Narrative</h4><p>Explains cash movements in plain English across operating, investing, and financing activities.</p></div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-label">Tier 4</div>
+    <h3>Workbook Augmentation</h3>
+    <div class="skill-row">
+      <div class="skill-num">Skill 09</div>
+      <div class="skill-info"><h4>Assumption Register Builder</h4><p>Scans a workbook and extracts all hardcoded assumptions into a structured register.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 10</div>
+      <div class="skill-info"><h4>Anomaly Detection</h4><p>Adds automated PASS/FAIL validation checks to any workbook.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 11</div>
+      <div class="skill-info"><h4>Model Documentation Generator</h4><p>Auto-generates an Instructions sheet covering model structure and usage.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 12</div>
+      <div class="skill-info"><h4>Variance Analysis Reporter</h4><p>Builds a structured sheet comparing actuals to budget, forecast, or prior period.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 13</div>
+      <div class="skill-info"><h4>KPI Dashboard Formatter</h4><p>Builds a one-page executive dashboard with tiles and traffic light indicators.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 14</div>
+      <div class="skill-info"><h4>Change Log &amp; Audit Trail</h4><p>Creates structured change tracking sheets for every workbook.</p></div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="skill-row">
+      <div class="skill-num">Skill 15</div>
+      <div class="skill-info"><h4>Meeting Prep Pack</h4><p>Generates a meeting preparation pack directly from workbook data.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRICING ══ -->
+<div class="teal-intro">
+  <div class="eyebrow">Update 3 of 3</div>
+  <h2>Updated Pricing from 1 July 2026</h2>
+  <p class="lead">EXL Cloud continues to evolve with faster insights, better automation, and more powerful workbooks. In response to increased platform costs from Xero, we're introducing updated subscription pricing.</p>
+</div>
+<div class="section-alt">
+
+  <div class="pricing-notice">
+    <p><strong>Your current pricing applies until 30 June 2026.</strong> New pricing takes effect from 1 July 2026. Questions? <a href="https://www.modelcitizn.com/knowledge-hub/" style="color:var(--teal);font-weight:600;text-decoration:none;">Get in touch</a> anytime.</p>
+  </div>
+
+  <!-- Growth Plans -->
+  <div class="pricing-group">
+    <div class="pricing-group-label">Growth Plans</div>
+    <h3>Updated pricing</h3>
+
+    <div class="price-rule"></div>
+    <div class="price-row">
+      <div>
+        <div class="price-name">Data Pull</div>
+        <div class="price-sub">5 connections included</div>
+      </div>
+      <div class="price-nums">
+        <span class="price-old">$50/mo</span>
+        <span class="price-new">$70/mo</span>
+      </div>
+    </div>
+    <div class="price-rule"></div>
+    <div class="price-row">
+      <div>
+        <div class="price-name">Advanced Content</div>
+        <div class="price-sub">5 connections included</div>
+      </div>
+      <div class="price-nums">
+        <span class="price-old">$125/mo</span>
+        <span class="price-new">$170/mo</span>
+      </div>
+    </div>
+    <div class="price-rule"></div>
+  </div>
+
+  <!-- Add-ons -->
+  <div class="pricing-group">
+    <div class="pricing-group-label">Growth Plan Add-ons</div>
+    <h3>Additional connections</h3>
+    <table class="addon-table">
+      <thead>
+        <tr>
+          <th>Connections</th>
+          <th>Data Pull</th>
+          <th>Advanced Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>6–20</td><td><span class="cell-old">$6.80–7.50</span>+$10/each</td><td><span class="cell-old">$16.25</span>+$20/each</td></tr>
+        <tr><td>21+</td><td><span class="cell-old">$6.00</span>+$9.50/each</td><td><span class="cell-old">$12.75</span>+$19.50/each</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Enterprise -->
+  <div class="pricing-group">
+    <div class="pricing-group-label">Enterprise Plans</div>
+    <h3>50+ connections</h3>
+    <table class="addon-table">
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Base Price</th>
+          <th>Add-on (21+)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;color:var(--text-dark);font-size:14px;">Data Pull Enterprise</div>
+            <div style="font-size:12px;color:var(--text-light);">50+ connections</div>
+          </td>
+          <td><span class="cell-old">$250/mo</span>$340/mo</td>
+          <td style="font-family:'Open Sans',sans-serif;font-weight:400;font-size:14px;color:var(--text-mid);"><span class="cell-old">$5/connection</span>+$10/connection</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;color:var(--text-dark);font-size:14px;">Advanced Content Enterprise</div>
+            <div style="font-size:12px;color:var(--text-light);">50+ connections</div>
+          </td>
+          <td><span class="cell-old">$575/mo</span>$800/mo</td>
+          <td style="font-family:'Open Sans',sans-serif;font-weight:400;font-size:14px;color:var(--text-mid);"><span class="cell-old">$11.50/connection</span>+$15/connection</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="aipa-bonus">
+    <div class="aipa-tag" style="font-size: 20px">Bonus — included with every subscription</div>
+    <h3>45% off the AI-Powered Accountant Program</h3>
+    <p>Your upgraded subscription now includes a 45% discount on the AIPA Program, hosted on Maven — available from the next cohort. The discount stays with you for as long as your subscription remains active.</p>
+    <a href="https://www.modelcitizn.com/knowledge-hub/" class="aipa-link">Join the next cohort →</a>
+  </div>
+</div>
+
+<!-- ══ TRAINING & RESOURCES ══ -->
+<div class="teal-intro" id="training">
+  <div class="eyebrow">Free Resources</div>
+  <h2>Future of Finance Lab &amp; Podcast</h2>
+  <p class="lead">Go deeper on AI-powered accounting and financial modelling through our free monthly sessions and podcast — all available through the Model Citizn Knowledge Hub.</p>
+</div>
+<div class="section">
+
+  <ul class="resource-list">
+    <li>
+      <div class="resource-eyebrow">Free Monthly Sessions</div>
+      <h3>Future of Finance Lab</h3>
+      <p>An interactive community where finance professionals share insights, solve real challenges, and stay ahead of the AI revolution. Free to attend monthly, max 50 participants per session.</p>
+      <a href="https://www.modelcitizn.com/knowledge-hub/" class="res-link">Browse past sessions</a>
+    </li>
+    <div class="res-rule"></div>
+    <li>
+      <div class="resource-eyebrow">Podcast</div>
+      <h3>Future of Financial Modelling</h3>
+      <p>The great debate on AI, Excel, and the future of financial modelling. Expert panellists, real debates, practical insights for finance professionals navigating the AI revolution.</p>
+      <a href="https://www.modelcitizn.com/knowledge-hub/" class="res-link">Listen now</a>
+    </li>
+    <div class="res-rule"></div>
+    <li>
+      <div class="resource-eyebrow">Knowledge Hub</div>
+      <h3>Recordings, Templates &amp; Resources</h3>
+      <p>Access all past session recordings, downloadable Excel templates, AI-built model comparisons, and free slides via the Model Citizn Knowledge Hub and Eloquens.</p>
+      <a href="https://www.modelcitizn.com/knowledge-hub/" class="res-link">Visit Knowledge Hub</a>
+    </li>
+  </ul>
+</div>
+
+<!-- MAVEN BANNER -->
+<div class="maven-banner">
+  <div class="eyebrow">Free Lightning Sessions</div>
+  <h2>Walk through every update with us.</h2>
+  <p>We're hosting two x 1-hour Lightning Sessions on Maven to cover the Gen 2 upgrade and Skills Library in detail. Free to attend — dates and registration coming soon.</p>
+  <a href="https://www.modelcitizn.com/knowledge-hub/" class="btn-green">Register (Coming Soon)</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+<span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;color:var(--teal);display:block;margin-bottom:20px;">EXL Cloud</span>
+      <p>Keep Excel. Leverage the cloud.<br/>From Xero to Excel in 8 clicks.<br/><br/>80 Market Street<br/>South Melbourne VIC 3205<br/>+61 405 329 098<br/><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afc6c1c9c0efcad7c3ccc3c0dacb81c6c0">[email&#160;protected]</a></p>
+    </div>
+    <div>
+      <h4>EXL Cloud</h4>
+      <ul>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">About Us</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Features</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Pricing &amp; Sign Up</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Support &amp; Training</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Events</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Member Login</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Model Citizn</h4>
+      <ul>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Future of Finance Lab</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Podcast</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Knowledge Hub</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Get in Touch</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">Privacy Policy</a></li>
+        <li><a href="https://www.modelcitizn.com/knowledge-hub/">EULA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 EXL Cloud by XLC. All rights reserved.</span>
+    <span>
+      <a href="https://www.modelcitizn.com/knowledge-hub/">Facebook</a>
+      <a href="https://www.modelcitizn.com/knowledge-hub/">Twitter</a>
+      <a href="https://www.modelcitizn.com/knowledge-hub/">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html>
